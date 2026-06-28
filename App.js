@@ -1,20 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Animacion1 from './components/Animacion1';
-import Animacion2 from './components/Animacion2';
+import { StyleSheet, ScrollView, View } from 'react-native';
+import AnimacionImage from './components/AnimacionImage';
+import AnimacionScrollView from './components/AnimacionScrollView';
+import AnimacionFlatList from './components/AnimacionFlatList';
+import AnimacionSectionList from './components/AnimacionSectionList';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-        <Animacion2/>
-    </View>
+    <ScrollView
+      style={styles.scroll}
+      contentContainerStyle={styles.content}
+    >
+      <View style={styles.spacer}>
+        <AnimacionImage />
+      </View>
+      <View style={styles.spacer}>
+        <AnimacionScrollView />
+      </View>
+      <View style={styles.spacer}>
+        <AnimacionFlatList />
+      </View>
+      <View>
+        <AnimacionSectionList />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scroll: {
     flex: 1,
-    alignItems:'center',
-    justifyContent:'center',
+    backgroundColor: '#1a1a2e',
+  },
+  content: {
+    paddingBottom: 100,
+  },
+  spacer: {
+    marginBottom: 30,
   },
 });
