@@ -4,6 +4,7 @@ import AnimacionImage from './components/AnimacionImage';
 import AnimacionScrollView from './components/AnimacionScrollView';
 import AnimacionFlatList from './components/AnimacionFlatList';
 import AnimacionSectionList from './components/AnimacionSectionList';
+import Animacion6 from './components/Animacion6';
 
 export default function App() {
   return (
@@ -11,17 +12,9 @@ export default function App() {
       style={styles.scroll}
       contentContainerStyle={styles.content}
     >
+      
       <View style={styles.spacer}>
-        <AnimacionImage />
-      </View>
-      <View style={styles.spacer}>
-        <AnimacionScrollView />
-      </View>
-      <View style={styles.spacer}>
-        <AnimacionFlatList />
-      </View>
-      <View>
-        <AnimacionSectionList />
+        <Animacion6 />
       </View>
     </ScrollView>
   );

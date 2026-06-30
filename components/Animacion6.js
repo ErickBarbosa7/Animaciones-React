@@ -1,44 +1,89 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Animated, StyleSheet, View, TouchableWithoutFeedback, Text } from 'react-native';
 
 const Animacion6 = () => {
-    const [animacion] = useState(new Animated.Value(0));
+    const [animacion1] = useState(new Animated.Value(0));
+    const [animacion2] = useState(new Animated.Value(1));
+
+    const reiniciar = () => {
+        animacion1.setValue(0);
+        animacion2.setValue(1);
+        Animated.sequence([
+            Animated.timing(animacion1, {
+                toValue: 150,
+                duration: 1000,
+                useNativeDriver: false,
+            }),
+            Animated.spring(animacion2, {
+                toValue: 10,
+                friction: 3,
+                tension: 40,
+                useNativeDriver: false,
+            }),
+            Animated.spring(animacion2, {
+                toValue: 1,
+                friction: 4,
+                tension: 10,
+                useNativeDriver: false,
+            }),
+            Animated.timing(animacion1, {
+                toValue: 500,
+                duration: 1500,
+                useNativeDriver: false,
+            }),
+        ]).start();
+    };
 
     useEffect(() => {
-        Animated.spring(animacion, {
-            toValue: 1,
-            friction: 2,
-            tension: 50,
-            useNativeDriver: true
-        }).start();
+        reiniciar();
     }, []);
 
-    const animatedStyle = {
+    const estiloAnimacion = {
         transform: [
-            { scale: animacion }
-        ]
-    }
+            { translateY: animacion1 },
+            { scale: animacion2 },
+        ],
+    };
 
     return (
-        <View style={styles.container}>
-            <Animated.Image 
-                source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                style={[styles.image, animatedStyle]}
-            />
+        <View style={styles.contenedor}>
+            <Animated.View style={[styles.caja, estiloAnimacion]} />
+            <TouchableWithoutFeedback onPress={() => reiniciar()}>
+                <View style={styles.btn}>
+                    <Text style={styles.texto}>Reiniciar</Text>
+                </View>
+            </TouchableWithoutFeedback>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    contenedor: {
         alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 20,
     },
-    image: {
-        width: 100,
-        height: 100,
-    }
+    caja: {
+        width: 30,
+        height: 30,
+        backgroundColor: 'cornflowerblue',
+    },
+    btn: {
+        alignSelf: 'flex-start',
+        cursor: 'pointer',
+        backgroundColor: '#6c63ff',
+        width: 200,
+        height: 60,
+        margin:20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 12,
+        marginTop: 40,
+    },
+    texto: {
+        color: '#FFF',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        fontSize: 20,
+    },
 });
 
 export default Animacion6;
